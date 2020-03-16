@@ -21,7 +21,7 @@ namespace RPI_Task.Application.UseCase.Notification.Update
 
             notification.title = request.DataD.Attributes.title;
             notification.message = request.DataD.Attributes.message;
-            notification.updated_at = Convert.ToInt64((DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
+            notification.updated_at = DateTime.Now;
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -1016,11 +1016,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/user/RPI_Task/RPI_Task.csproj",
+      "projectUniqueName": "/Users/user/RPI_Task/NotificationServices/RPI_Task.csproj",
       "projectName": "RPI_Task",
-      "projectPath": "/Users/user/RPI_Task/RPI_Task.csproj",
+      "projectPath": "/Users/user/RPI_Task/NotificationServices/RPI_Task.csproj",
       "packagesPath": "/Users/user/.nuget/packages/",
-      "outputPath": "/Users/user/RPI_Task/obj/",
+      "outputPath": "/Users/user/RPI_Task/NotificationServices/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/user/.nuget/NuGet/NuGet.Config"

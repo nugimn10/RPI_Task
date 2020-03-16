@@ -3,12 +3,12 @@ using System;
 using RPI_Task.Domain.Entities;
 using RPI_Task.Application.UseCase;
 
-namespace RPI_Task.Application.UseCase.Notification.Delete
+namespace RPI_Task.Application.UseCase.Logs.Delete
 {
-    public class DeleteNotification : IRequest<DeleteNotificationDto>
+    public class DeleteLogs : IRequest<DeleteLogsDto>
     {
         public int Id { get; set; }
-        public DeleteNotification(int id)
+        public DeleteLogs(int id)
         {
             Id = id;
         }

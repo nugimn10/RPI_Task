@@ -1,7 +1,7 @@
 using RPI_Task.Application.UseCase;
-namespace RPI_Task.Application.UseCase.Notification.Delete
+namespace RPI_Task.Application.UseCase.Logs.Delete
 {
-    public class DeleteNotificationDto : BaseDto
+    public class DeleteLogsDto : BaseDto
     {
 
     }
