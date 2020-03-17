@@ -26,8 +26,8 @@ namespace RPI_Task.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("created_at")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("message")
                         .HasColumnType("text");
@@ -35,8 +35,8 @@ namespace RPI_Task.Migrations
                     b.Property<string>("title")
                         .HasColumnType("text");
 
-                    b.Property<long>("updated_at")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("updated_at")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("id");
 
@@ -50,8 +50,8 @@ namespace RPI_Task.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("create_at")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("create_at")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("email_destination")
                         .HasColumnType("text");
@@ -62,14 +62,14 @@ namespace RPI_Task.Migrations
                     b.Property<int>("notification_id")
                         .HasColumnType("integer");
 
-                    b.Property<long>("read_at")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("read_at")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("type")
                         .HasColumnType("text");
 
-                    b.Property<long>("update_at")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("update_at")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("id");
 

@@ -24,8 +24,8 @@ namespace RPI_Task.Application.UseCase.Logs.Update
                 Logs.from = request.DataD.Attributes.from;
                 Logs.target = request.DataD.Attributes.target;
                 Logs.email_destination = request.DataD.Attributes.email_destination;
-                Logs.read_at = Convert.ToInt64((DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
-                Logs.update_at = Convert.ToInt64((DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
+                Logs.read_at = DateTime.Now;
+                Logs.update_at =DateTime.Now;
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/RPI_Task/UserServices/UserServices.csproj": {}
+    "c:\\Users\\Nugi\\UserServices\\UserServices\\UserServices.csproj": {}
   },
   "projects": {
-    "/Users/user/RPI_Task/UserServices/UserServices.csproj": {
+    "c:\\Users\\Nugi\\UserServices\\UserServices\\UserServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/RPI_Task/UserServices/UserServices.csproj",
+        "projectUniqueName": "c:\\Users\\Nugi\\UserServices\\UserServices\\UserServices.csproj",
         "projectName": "UserServices",
-        "projectPath": "/Users/user/RPI_Task/UserServices/UserServices.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/RPI_Task/UserServices/obj/",
+        "projectPath": "c:\\Users\\Nugi\\UserServices\\UserServices\\UserServices.csproj",
+        "packagesPath": "C:\\Users\\Nugi\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Nugi\\UserServices\\UserServices\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Nugi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -35,6 +37,34 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[8.6.2, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -53,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -11,7 +11,7 @@ namespace  RPI_Task.Domain.Entities
         public int id { get; set; }    
         public string title { get; set; }
         public string message { get; set; }
-        public DateTime created_at { get; set; }
+        public DateTime created_at { get; set; } = DateTime.Now;
         public DateTime updated_at { get; set; }
     }
     
@@ -24,7 +24,7 @@ namespace  RPI_Task.Domain.Entities
         public List<Target> target { get; set; }
         public string email_destination { get; set; }
         public DateTime read_at { get; set; }
-        public DateTime create_at { get; set; }
+        public DateTime create_at { get; set; } =DateTime.Now;
         public DateTime update_at { get; set; }
 
         // public Users users {get; set;}

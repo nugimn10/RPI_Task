@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using UserServices.Domain.Entities;
 
-namespace UserServices.Infrastructure.Presistences
+namespace UserServices.Presistences
 {
     public class user_context : DbContext
     {
@@ -13,9 +13,9 @@ namespace UserServices.Infrastructure.Presistences
         protected override void OnModelCreating(ModelBuilder model)
         {
             
-            model.Entity<Notification_logs>()
-            .HasOne(i => i.users)
-            .WithMany().HasForeignKey(i => i.from);
+            // model.Entity<Notification_logs>()
+            // .HasOne(i => i.users)
+            // .WithMany().HasForeignKey(i => i.from);
         }
         
     }

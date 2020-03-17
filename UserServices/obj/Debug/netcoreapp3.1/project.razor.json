@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\Nugi\\RPI_Task\\NotificationServices\\RPI_Task.csproj",
+  "FilePath": "c:\\Users\\Nugi\\RPI_Task\\UserServices\\UserServices.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -20518,7 +20518,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "RPI_Task",
+  "RootNamespace": "UserServices",
   "Documents": [],
   "SerializationFormat": "0.2"
 }
