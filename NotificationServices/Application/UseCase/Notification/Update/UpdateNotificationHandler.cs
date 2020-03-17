@@ -17,10 +17,10 @@ namespace RPI_Task.Application.UseCase.Notification.Update
         }
         public async Task<UpdateNotificationDto> Handle(UpdateNotification request, CancellationToken cancellationToken)
         {
-            var notification = _context.Notification.Find(request.DataD.Attributes.id);
+            var notification = _context.Notification.Find(request.Data.Attributes.id);
 
-            notification.title = request.DataD.Attributes.title;
-            notification.message = request.DataD.Attributes.message;
+            notification.title = request.Data.Attributes.title;
+            notification.message = request.Data.Attributes.message;
             notification.updated_at = DateTime.Now;
 
             await _context.SaveChangesAsync(cancellationToken);

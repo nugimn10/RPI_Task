@@ -13,12 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RPI_Task.Application.UseCase.Notification.ReadBy;
 using RPI_Task.Application.UseCase.Notification.Create;
-using RPI_Task.Application.UseCase.Logs.ReadBy;
-using RPI_Task.Application.UseCase.Logs.Create;
 using Microsoft.Extensions.Logging;
 using RPI_Task.Domain.Entities;
 using RPI_Task.Presistences;
 using System.Reflection;
+using Hangfire;
+using Hangfire.PostgreSql;
 
 namespace RPI_Task
 {
@@ -34,10 +34,9 @@ namespace RPI_Task
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<notification_context>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
+            services.AddDbContext<notification_context>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
             
-            services.AddMediatR(typeof(ReadLogsHandler).GetTypeInfo().Assembly)
-            .AddMediatR(typeof(ReadNotificationHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(ReadNotificationHandler).GetTypeInfo().Assembly);
             
             services.AddControllers();
 
@@ -47,6 +46,8 @@ namespace RPI_Task
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

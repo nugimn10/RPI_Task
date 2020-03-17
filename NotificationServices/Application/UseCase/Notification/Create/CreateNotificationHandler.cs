@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 // using CustomerServices.Application.Interfaces;
@@ -6,6 +8,12 @@ using RPI_Task.Presistences;
 using RPI_Task.Application.UseCase;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using System.Net;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Linq;
+using MimeKit;
+using System.Collections.Generic;
 
 namespace RPI_Task.Application.UseCase.Notification.Create
 {
@@ -19,25 +27,42 @@ namespace RPI_Task.Application.UseCase.Notification.Create
         }
         public async Task<CreateNotificationDto> Handle(CreateNotification request, CancellationToken cancellationToken)
         {
+            var notificationList = _context.Notification.ToList();
 
-            var customer = new Domain.Entities.NotificationTB
+            var notdata = new NotificationTB()
             {
-                title = request.DataD.Attributes.title,
-                message = request.DataD.Attributes.message,
-                created_at = request.DataD.Attributes.created_at,
-                updated_at = request.DataD.Attributes.updated_at
+                title = request.Data.Attributes.Title,
+                message = request.Data.Attributes.Message
             };
-            
 
-            _context.Notification.Add(customer);
-            await _context.SaveChangesAsync(cancellationToken);
+            if (!notificationList.Any(x=>x.title == request.Data.Attributes.Title))
+            {
+                _context.Notification.Add(notdata);
+            }
+  
+            await _context.SaveChangesAsync();
+
+            var notifselect = _context.Notification.First(x => x.title == request.Data.Attributes.Title);
+            foreach (var x in request.Data.Attributes.Targets)
+            {
+                _context.Notification_Logs.Add(new Notification_logsTB{
+                    notification_id = notifselect.id,
+                    type = request.Data.Attributes.Type,
+                    from = request.Data.Attributes.From,
+                    target= x.Id,
+                    email_destination = x.Email_destination
+                });
+
+                await _context.SaveChangesAsync();
+            }
 
             return new CreateNotificationDto
             {
                 Success = true,
-                Message = "Creator successfully created",
+                Message = " successfully created",
             };
 
         }
+        
     }
 }

@@ -8,7 +8,7 @@ namespace UserServices.Application.UseCase
     }
     public class RequestData<T>
     {
-        public Data<T> DataD { get; set; }
+        public Data<T> Data { get; set; }
     }
     public class Data<T>
     {

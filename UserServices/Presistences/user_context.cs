@@ -4,19 +4,13 @@ using UserServices.Domain.Entities;
 
 namespace UserServices.Presistences
 {
-    public class user_context : DbContext
+    public class usr_context : DbContext
     {
-        public user_context(DbContextOptions<user_context> options) : base(options) {}
+        public usr_context(DbContextOptions<usr_context> options) : base(options) {}
 
-        public DbSet<Users> Users {get; set;}
+        public DbSet<UsersTB> Users {get; set;}
 
-        protected override void OnModelCreating(ModelBuilder model)
-        {
-            
-            // model.Entity<Notification_logs>()
-            // .HasOne(i => i.users)
-            // .WithMany().HasForeignKey(i => i.from);
-        }
+        
         
     }
 }

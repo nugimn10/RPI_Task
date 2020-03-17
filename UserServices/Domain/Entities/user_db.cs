@@ -1,6 +1,6 @@
 namespace UserServices.Domain.Entities
 {
-    public class Users
+    public class UsersTB
     {
         public int id { get; set; }
         public string name { get; set; }

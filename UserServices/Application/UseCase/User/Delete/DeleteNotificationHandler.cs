@@ -9,9 +9,9 @@ namespace UserServices.Application.UseCase.User.Delete
 {
         public class DeleteUserHandler : IRequestHandler<DeleteUser, DeleteUserDto>
     {
-        private readonly user_context _context;
+        private readonly usr_context _context;
 
-        public DeleteUserHandler(user_context context)
+        public DeleteUserHandler(usr_context context)
         {
             _context = context;
         }

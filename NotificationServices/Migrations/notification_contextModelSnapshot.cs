@@ -65,6 +65,9 @@ namespace RPI_Task.Migrations
                     b.Property<DateTime>("read_at")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("target")
+                        .HasColumnType("integer");
+
                     b.Property<string>("type")
                         .HasColumnType("text");
 
@@ -78,26 +81,6 @@ namespace RPI_Task.Migrations
                     b.ToTable("Notification_Logs");
                 });
 
-            modelBuilder.Entity("RPI_Task.Domain.Entities.Target", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("Notification_logsTBid")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("message")
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Notification_logsTBid");
-
-                    b.ToTable("Target");
-                });
-
             modelBuilder.Entity("RPI_Task.Domain.Entities.Notification_logsTB", b =>
                 {
                     b.HasOne("RPI_Task.Domain.Entities.NotificationTB", "notification")
@@ -105,13 +88,6 @@ namespace RPI_Task.Migrations
                         .HasForeignKey("notification_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RPI_Task.Domain.Entities.Target", b =>
-                {
-                    b.HasOne("RPI_Task.Domain.Entities.Notification_logsTB", null)
-                        .WithMany("target")
-                        .HasForeignKey("Notification_logsTBid");
                 });
 #pragma warning restore 612, 618
         }

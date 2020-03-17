@@ -10,6 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UserServices.Application.UseCase.User.ReadBy;
+using UserServices.Application.UseCase.User.Create;
+using UserServices.Presistences;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace UserServices
 {
@@ -25,6 +31,9 @@ namespace UserServices
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<usr_context>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
+            
+            services.AddMediatR(typeof(ReadUserHandler).GetTypeInfo().Assembly);
             services.AddControllers();
         }
 

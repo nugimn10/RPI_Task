@@ -7,36 +7,38 @@ using UserServices.Application.UseCase;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
+using System.Net.Http;
+
 namespace UserServices.Application.UseCase.User.Create
 {
     public class CreateUserHandler : IRequestHandler<CreateUser, CreateUserDto>
     {
-        private readonly user_context _context;
+        private readonly usr_context _context;
 
-        public CreateUserHandler (user_context context)
+        public CreateUserHandler (usr_context context)
         {
             _context = context;
         }
-        public async Task<CreateUserDto> Handle(CreateUser request, CancellationToken cancellationToken)
+        public async Task<CreateUserDto> Handle(CreateUser request, CancellationToken cancellation)
         {
 
-            var notification = new Domain.Entities.Users
+            var users = new Domain.Entities.UsersTB
             {
-                name = request.DataD.Attributes.name,
-                username = request.DataD.Attributes.username,
-                email = request.DataD.Attributes.email,
-                password = request.DataD.Attributes.password,
-                address = request.DataD.Attributes.address
+                name = request.Data.Attributes.name,
+                username = request.Data.Attributes.username,
+                email = request.Data.Attributes.email,
+                password = request.Data.Attributes.password,
+                address = request.Data.Attributes.address
             };
             
 
-            _context.Users.Add(notification);
-            await _context.SaveChangesAsync(cancellationToken);
+            _context.Users.Add(users);
+            await _context.SaveChangesAsync(cancellation);
 
             return new CreateUserDto
             {
                 Success = true,
-                Message = "Logs successfully created",
+                Message = "User successfully created",
             };
 
         }

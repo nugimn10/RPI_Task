@@ -12,7 +12,7 @@ namespace  RPI_Task.Domain.Entities
         public string title { get; set; }
         public string message { get; set; }
         public DateTime created_at { get; set; } = DateTime.Now;
-        public DateTime updated_at { get; set; }
+        public DateTime updated_at { get; set; } = DateTime.Now;
     }
     
     public class Notification_logsTB
@@ -21,21 +21,15 @@ namespace  RPI_Task.Domain.Entities
         public int notification_id { get; set; }
         public string type { get; set; }
         public int from { get; set; }
-        public List<Target> target { get; set; }
+        public int target { get; set; }
         public string email_destination { get; set; }
         public DateTime read_at { get; set; }
         public DateTime create_at { get; set; } =DateTime.Now;
-        public DateTime update_at { get; set; }
+        public DateTime update_at { get; set; } =DateTime.Now;
 
         // public Users users {get; set;}
         [JsonIgnore]
         public NotificationTB notification {get; set;}
-    }
-
-    public class Target
-    {
-        public int id { get; set; }
-        public string message { get; set; }
     }
     
 }

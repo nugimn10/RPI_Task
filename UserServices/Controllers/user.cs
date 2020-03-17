@@ -13,56 +13,44 @@ using UserServices.Application.UseCase.User.ReadById;
 using UserServices.Application.UseCase.User.Delete;
 using UserServices.Presistences;
 
-namespace UserServices.Presenter.Controllers
+namespace UserServices.Controllers
 {
     [ApiController]
-    [Route("notification")]
-    public class CustomerController : ControllerBase
+    [Route("user")]
+    public class NotifController : ControllerBase
     {
-        private IMediator _mediatr;
-
-        public CustomerController(IMediator Mediator)
+        public IMediator _mediatr;
+        public NotifController(IMediator mediatr)
         {
-            _mediatr = Mediator;
+            _mediatr = mediatr;
         }
-
         [HttpGet]
-        public async Task<ActionResult<ReadUserDto>> GetCustomer()
+        public async Task<ActionResult<ReadUserDto>> GetNotif()
         {
-            var result = new ReadUser();
-            return Ok(await _mediatr.Send(result));
+            return Ok(await _mediatr.Send(new ReadUser()));
         }
-
         [HttpPost]
-        public async Task<IActionResult> PostCustomer( CreateUser payload)
+        public async Task<ActionResult<CreateUserDto>> PostNotif( CreateUser yo)
         {
-            var result = await _mediatr.Send(payload);
-            return Ok(result);
+            return Ok(await _mediatr.Send(yo));
         }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadyUserByIdDto>> GetCustomerById(int id)
+        public async Task<ActionResult<ReadyUserByIdDto>> GetById(int id)
         {
-            var result = new ReadUserByid(id);
-            return Ok(await _mediatr.Send(result));
+            return Ok(await _mediatr.Send(new ReadUserByid(id)));
         }
-        
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int ID, UpdateUser data)
+        public async Task<IActionResult> UpdateNotif(int id, UpdateUser data)
         {
-            data.DataD.Attributes.id = ID;
-            var result = await _mediatr.Send(data);
-            return Ok(result);
+            data.Data.Attributes.id = id;
+            return Ok(await _mediatr.Send(data));
         }
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteNotif(int id)
         {
             var command = new DeleteUser(id);
             var result = await _mediatr.Send(command);
-
-            return result != null ? (ActionResult)Ok(new { Message = "success" }) : NotFound(new { Message = "not found" });
-
+            return result != null ? (IActionResult)Ok(new { Message = "success" }) : NotFound(new { Message = "not found" });
         }
     }
 }
