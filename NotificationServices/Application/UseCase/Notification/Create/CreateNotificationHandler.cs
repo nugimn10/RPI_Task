@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 // using CustomerServices.Application.Interfaces;
 using RPI_Task.Domain.Entities;
 using RPI_Task.Presistences;
-using RPI_Task.Application.UseCase;
-using Microsoft.EntityFrameworkCore;
 using MediatR;
 using System.Net;
 using System.Net.Http;
@@ -14,6 +12,7 @@ using System.Net.Mail;
 using System.Linq;
 using MimeKit;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace RPI_Task.Application.UseCase.Notification.Create
 {
@@ -54,8 +53,10 @@ namespace RPI_Task.Application.UseCase.Notification.Create
                 });
 
                 await _context.SaveChangesAsync();
+
             }
 
+            await _context.SaveChangesAsync();
             return new CreateNotificationDto
             {
                 Success = true,
@@ -64,5 +65,23 @@ namespace RPI_Task.Application.UseCase.Notification.Create
 
         }
         
+        public async Task<List<Users>> GetUserData()
+        {
+            var client = new HttpClient();
+            var data = await client.GetStringAsync("http://usersservice/users");
+            return JsonConvert.DeserializeObject<List<Users>>(data);
+
+        }
+        public async Task SendMail(string emailfrom, string emailto, string subject, string body)
+        {
+            var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("b273ce438cbb61", "54439c79c1ca2a"),
+                EnableSsl = true
+            };
+            await client.SendMailAsync(emailfrom, emailto, subject, body);
+            Console.WriteLine("Email has been sent");
+        }
     }
+   
 }
