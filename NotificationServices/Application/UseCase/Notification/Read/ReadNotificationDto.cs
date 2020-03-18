@@ -6,6 +6,6 @@ namespace RPI_Task.Application.UseCase.Notification.ReadBy
 {
     public class ReadNotificationDto : BaseDto
     {
-        public IList<NotificationTB> Data { get; set; }
+        public IList<NotificationData> Data { get; set; }
     }
 }

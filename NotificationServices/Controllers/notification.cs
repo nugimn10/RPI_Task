@@ -50,7 +50,7 @@ namespace CustomerServices.Presenter.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int ID, UpdateNotification data)
         {
-            data.Data.Attributes.id = ID;
+            data.Data.Attributes.Notification_id = ID;
             var result = await _mediatr.Send(data);
             return Ok(result);
         }

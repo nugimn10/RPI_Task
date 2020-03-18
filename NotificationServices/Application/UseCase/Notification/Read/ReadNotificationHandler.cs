@@ -2,15 +2,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using RPI_Task.Presistences;
+using System.Linq;
 using RPI_Task.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
-using Hangfire;
-using System;
-using MimeKit;
-using MailKit.Net.Smtp;
 
 
 namespace RPI_Task.Application.UseCase.Notification.ReadBy
@@ -28,22 +25,23 @@ namespace RPI_Task.Application.UseCase.Notification.ReadBy
             
 
             var data = await _context.Notification.ToListAsync();
-            var result = new List<NotificationTB>();
+            var result = new List<NotificationData>();
 
             foreach (var x in data)
             {
-                result.Add(new NotificationTB {
-                    id = x.id,
-                    title = x.title,
-                    message = x.message
+                result.Add(new NotificationData {
+                    Id = x.id,
+                    Title = x.title,
+                    Message = x.message
                 });
             }
             
 
             return new ReadNotificationDto
             {
-                Success = true,
                 Message = "Message successfully retrieved",
+                Success = true,
+               
                 Data = result
             };
 

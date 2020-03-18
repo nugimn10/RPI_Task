@@ -5,6 +5,7 @@ using RPI_Task.Presistences;
 using RPI_Task.Application.UseCase;
 using RPI_Task.Domain.Entities;
 using MediatR;
+using System.Linq;
 
 namespace RPI_Task.Application.UseCase.Notification.Update
 {
@@ -17,18 +18,24 @@ namespace RPI_Task.Application.UseCase.Notification.Update
         }
         public async Task<UpdateNotificationDto> Handle(UpdateNotification request, CancellationToken cancellationToken)
         {
-            var notification = _context.Notification.Find(request.Data.Attributes.id);
+            var resultLog = _context.Notification_Logs.ToList();
+            var query = resultLog.Where(n => n.notification_id == request.Data.Attributes.Notification_id);
 
-            notification.title = request.Data.Attributes.title;
-            notification.message = request.Data.Attributes.message;
-            notification.updated_at = DateTime.Now;
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new UpdateNotificationDto
+            foreach (var x in request.Data.Attributes.Target)
             {
+                var data = query.First(j => j.target == x.Id).id;
+                var dataContext = await _context.Notification_Logs.FindAsync(data);
+                dataContext.read_at = request.Data.Attributes.Read_at;
+                await _context.SaveChangesAsync();
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new UpdateNotificationDto()
+            {
+                Message = "Data successfully updated",
                 Success = true,
-                Message = "Customer successfully updated",
+                
             };
         }
     }

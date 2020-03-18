@@ -2,9 +2,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using RPI_Task.Presistences;
 using RPI_Task.Domain.Entities;
+using System.Linq;
 
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using System.Collections.Generic;
 
 namespace RPI_Task.Application.UseCase.Notification.ReadById
 {
@@ -19,16 +21,35 @@ namespace RPI_Task.Application.UseCase.Notification.ReadById
         public async Task<ReadNotificationIdDto> Handle(ReadNotificationId request, CancellationToken cancellationToken)
         {
 
-            var result = await _context.Notification.FirstOrDefaultAsync(e => e.id == request.Id);
+            var resultNot = await _context.Notification.FirstOrDefaultAsync(e => e.id == request.Id);
+            var resultLog = await _context.Notification_Logs.Where(n => n.notification_id == request.Id).ToListAsync();
+           
+            var ListLog = new List<NotificationLogData>();
 
-            return new ReadNotificationIdDto
+            foreach(var n in resultLog)
             {
-                Success = true,
+                ListLog.Add(new NotificationLogData(){
+                    
+                    Notification_id = n.notification_id,
+                    From = n.from,
+                    Read_at = n.read_at,
+                    Target = n.target
+                });
+            }
+
+            return new ReadNotificationIdDto()
+            {
                 Message = "Message successfully retrieved",
-                Data = new NotificationTB
+                Success = true,
+                Data = new NotificationDTO()
                 {
-                    title = result.title,
-                    message = result.message,
+                    Notifications = new NotificationData()
+                    {
+                    Id = resultNot.id,
+                    Title = resultNot.title,
+                    Message = resultNot.message
+                    },
+                    Notification_logs = ListLog
                 }
             };
 
