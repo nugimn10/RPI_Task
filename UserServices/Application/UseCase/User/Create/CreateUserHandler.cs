@@ -72,18 +72,22 @@ namespace UserServices.Application.UseCase.User.Create
                 // channel.QueueDeclare( queue : "uvuvueuwe", durable: true, autoDelete: false, arguments: null);
                 channel.ExchangeDeclare(exchange : "uvuvueuwe", type : ExchangeType.Fanout);
 
-                var jsonisation = JsonConvert.SerializeObject(postnotif);
+                // var jsonisation = JsonConvert.SerializeObject(postnotif);
 
-                 var jsondata = Encoding.UTF8.GetBytes(jsonObj);
+                var jsondata = Encoding.UTF8.GetBytes(jsonObj);
+                
+                var properties = channel.CreateBasicProperties();
+                properties.Persistent = true;
 
                 channel.BasicPublish(exchange : "uvuvueuwe", routingKey: "", basicProperties : null, body : jsondata);
 
-                Console.WriteLine($"messages {jsonisation} has been sent");
+                Console.WriteLine($"messages {jsondata} has been sent");
             }
+            Console.ReadLine();
  
-            var content = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+            // var content = new StringContent(jsonObj, Encoding.UTF8, "application/json");
 
-            await client.PostAsync("http://localhost:3000/notification", content);
+            // await client.PostAsync("http://localhost:3000/notification", content);
             
 
             return new CreateUserDto
