@@ -12,7 +12,7 @@ RUN dotnet build "UserServices.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "UserServices.csproj" -c Release -o /app/publish
 
-FROM base AS final
+FROM build-user AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "UserServices.dll"]

@@ -77,6 +77,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[3.1.2, )"
+            },
+            "RabbitMQ.client": {
+              "target": "Package",
+              "version": "(, )"
             }
           },
           "imports": [

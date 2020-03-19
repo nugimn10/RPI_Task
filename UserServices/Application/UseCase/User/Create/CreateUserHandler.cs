@@ -1,3 +1,4 @@
+using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ using UserServices.Application.UseCase;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using System.Linq;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 namespace UserServices.Application.UseCase.User.Create
 {
@@ -59,9 +63,28 @@ namespace UserServices.Application.UseCase.User.Create
             {Data = attributes};
 
             var jsonObj =JsonConvert.SerializeObject(HttpContent);
+      
+
+            var factory = new ConnectionFactory() {HostName = "localhost"};
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                // channel.QueueDeclare( queue : "uvuvueuwe", durable: true, autoDelete: false, arguments: null);
+                channel.ExchangeDeclare(exchange : "uvuvueuwe", type : ExchangeType.Fanout);
+
+                var jsonisation = JsonConvert.SerializeObject(postnotif);
+
+                 var jsondata = Encoding.UTF8.GetBytes(jsonObj);
+
+                channel.BasicPublish(exchange : "uvuvueuwe", routingKey: "", basicProperties : null, body : jsondata);
+
+                Console.WriteLine($"messages {jsonisation} has been sent");
+            }
+ 
             var content = new StringContent(jsonObj, Encoding.UTF8, "application/json");
 
-            await client.PostAsync("http://notificationservices/notification", content);
+            await client.PostAsync("http://localhost:3000/notification", content);
+            
 
             return new CreateUserDto
             {
