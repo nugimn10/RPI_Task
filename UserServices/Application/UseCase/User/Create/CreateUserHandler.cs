@@ -76,8 +76,6 @@ namespace UserServices.Application.UseCase.User.Create
 
                 var jsondata = Encoding.UTF8.GetBytes(jsonObj);
                 
-                var properties = channel.CreateBasicProperties();
-                properties.Persistent = true;
 
                 channel.BasicPublish(exchange : "uvuvueuwe", routingKey: "", basicProperties : null, body : jsondata);
 

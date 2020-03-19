@@ -70,36 +70,7 @@ namespace RPI_Task.Application.UseCase.Notification.Create
         
         public async Task<List<Users>> GetUserData()
         {
-            var client = new HttpClient();
-            var factory =  new ConnectionFactory(){HostName = "localhost"};
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.ExchangeDeclare(exchange : "uvuvueuwe", type : ExchangeType.Fanout);
-
-                channel.BasicQos (0, 1, false);
-                
-                Console.WriteLine("waiting for message");
-                var consumer = new EventingBasicConsumer(channel);
-
-                consumer.Received += (sender, ea) => 
-                {
-                    // var jsonisation = JsonConvert.DeserializeObject(postnotif);
-
-                    // byte[] jsondata = Encoding.UTF8.GetBytes(jsonisation);
-
-                    Console.WriteLine($"message received ");
-
-                    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-
-                };
-
-                channel.BasicConsume(queue: "uvuvueuwe", autoAck:false, consumer: consumer);
-                Console.ReadLine();
-
-            }
-
-            
+            var client = new HttpClient();    
             var data = await client.GetStringAsync("http://localhost:4000/user");
             return JsonConvert.DeserializeObject<List<Users>>(data);            
             
