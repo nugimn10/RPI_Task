@@ -69,20 +69,22 @@ namespace UserServices.Application.UseCase.User.Create
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                // channel.QueueDeclare( queue : "uvuvueuwe", durable: true, autoDelete: false, arguments: null);
-                channel.ExchangeDeclare(exchange : "uvuvueuwe", type : ExchangeType.Fanout);
+                channel.ExchangeDeclare("userDataExchange", "fanout");
+                channel.QueueDeclare("userData", true, false, false, null);
 
-                // var jsonisation = JsonConvert.SerializeObject(postnotif);
+                channel.QueueBind("userData", "userDataExchange", string.Empty);
 
-                var jsondata = Encoding.UTF8.GetBytes(jsonObj);
+                var body = Encoding.UTF8.GetBytes(jsonObj);
+
+                channel.BasicPublish(
+                    exchange: "userDataExchange",
+                    routingKey: "",
+                    basicProperties: null,
+                    body: body
+                    );
+                Console.WriteLine("User data has been forwarded");
                 
-
-                channel.BasicPublish(exchange : "uvuvueuwe", routingKey: "", basicProperties : null, body : jsondata);
-
-                Console.WriteLine($"messages {jsondata} has been sent");
             }
-            Console.ReadLine();
- 
             // var content = new StringContent(jsonObj, Encoding.UTF8, "application/json");
 
             // await client.PostAsync("http://localhost:3000/notification", content);
